@@ -28,7 +28,7 @@ void Player::Update(float dt) {
     particle.position = m_transform.position;
     particle.color = { 1.0f, 1.0f, 1.0f };
     particle.lifespan = nu::RandomFloat(0.5f, 1.5f);
-    particle.velocity = { nu::RandomFloat(-200.0f, 200.0f), nu::RandomFloat(-200.0f, 200.0f) };
+    particle.velocity = { nu::RandomFloat(-100.0f, 30.0f), nu::RandomFloat(-200.0f, 200.0f) };
 
     nu::Engine::Get().GetPS().AddParticle(particle);
 

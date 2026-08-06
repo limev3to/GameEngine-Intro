@@ -10,79 +10,13 @@
 #include <vector>
 #include <map>
 #include <memory>
+#include <random>
 
 using namespace nu;
 
-class Object {
-public: 
-    Object() { std::cout << "constructor\n"; }
-    ~Object() { std::cout << "destructor\n"; }
-
-    Object(const Object& object) { std::cout << "copy\n"; }
-    Object* operator = (const Object& object) { std::cout << "assignment\n"; return this; }
-
-
-};
-
 int main()
 {
-    std::cout << "================Object=================\n"; {
-        Object objectA;
-        Object objectB = objectA;
-        Object objectC;
-        objectC = objectA;
-    }
-
-    std::cout << "================Raw Pointers=================\n"; {
-        Object* objectA = new Object();
-        std::cout << objectA << std::endl;
-
-        Object* objectB = new Object(*objectA);
-        std::cout << objectB << std::endl;
-
-        Object* objectC = nullptr;
-        objectC = objectA;
-        std::cout << objectC << std::endl;
-
-        delete objectA;
-        delete objectB;
-    }
-
-    std::cout << "================Smart Pointers=================\n"; {
-        std::unique_ptr<Object> objectA = std::make_unique<Object>();
-        std::cout << objectA.get() << std::endl;
-
-        std::unique_ptr<Object> objectB;
-        objectB = std::move(objectA);
-        std::cout << objectA.get() << std::endl;
-
-
-
-    }
-
-    //return 0;
-
-
-
-
-
-
-
     SetWorkingDirectory("Assets");
-    /*
-    std::map<std::string, int> students;
-    students["Cela"] = 18;
-    students["Dom"] = 19;
-    students["Diego"] = 20;
-    
-    // std::map<std::string, fmod_sound*> m_sounds;
-    // "laser" -> fmod_sound*
-
-    std::cout << students["Diego"] << std::endl;
-
-    if (students.find("Cela") == students.end()) {
-        std::cout << " not found.\n";
-    } */
     
     // INITIALIZATION
     Engine::Get().Initialize();
@@ -97,15 +31,14 @@ int main()
     Engine::Get().GetAudio().AddSound("itemPickup", "audio/item_pickup.wav");
     Engine::Get().GetAudio().AddSound("enemyExplosion", "audio/enemy_explosion.wav");
 
-    std::shared_ptr<Texture> texture = std::make_shared<Texture>();
-    texture->Load("textures/chud.jpg", Engine::Get().GetRenderer());
+    //std::shared_ptr<Texture> texture = std::make_shared<Texture>();
+    //texture->Load("textures/player.png", Engine::Get().GetRenderer());
 
     // create audio system
 //FMOD::System* audio;
 //FMOD::System_Create(&audio);
 //void* extradriverdata = nullptr;
 //audio->init(32, FMOD_INIT_NORMAL, extradriverdata);
-
     // mesh / model
     //Mesh mesh{ { Vector2{ 2, 0 }, Vector2{ -2, 2 }, Vector2{ -1, 0 }, Vector2{ -2, -2 }, Vector2{ 2, 0 } }, Color{ 1.0f, 1.0f, 1.0f } };
     //Mesh mesh{ { Vector2{ 10, 0 }, Vector2{ 7, -8 }, Vector2{ -7, -8 }, Vector2{ -10, 0 }, Vector2{ -7, 8 }, Vector2 { 7 , 8 }, Vector2 { 10 , 0 } }, Color{ 0.9f, 0.8f, 1.0f } };
@@ -119,7 +52,6 @@ int main()
     //model.AddMesh(mesh3);
     //model.AddMesh(mesh4);
     //model.AddMesh(mesh5);
-
     // test FMOD working on startup
     //FMOD::Sound* sound1 = nullptr;
     //audio->createSound("test.wav", FMOD_DEFAULT, 0, &sound1);
@@ -139,16 +71,13 @@ int main()
     //sounds.push_back(sound);
     //audio->createSound("audio/whistle.mp3", FMOD_DEFAULT, 0, &sound);
     //sounds.push_back(sound);
-
     //// get current working directory
     //std::cout << "Directory Operations:\n";
     //std::cout << "Working directory: " << nu::GetWorkingDirectory() << "\n";
-
     //// set working directory (current working directory + "Assets")
     //std::cout << "Setting directory to 'Assets'...\n";
     //nu::SetWorkingDirectory("Assets");
     //std::cout << "New directory: " << nu::GetWorkingDirectory() << "\n\n";
-
     //// get filenames in the working directory
     //std::cout << "Files in Directory:\n";
     //auto filenames = nu::GetFilesInDirectory(nu::GetWorkingDirectory());
@@ -157,23 +86,19 @@ int main()
     //    std::cout << filename << "\n";
     //}
     //std::cout << "\n";
-
     //// get filename info
     //if (!filenames.empty())
     //{
     //    // get filename
     //    std::string str = nu::GetFilename(filenames[0]);
     //    std::cout << "Filename: " << str << "\n";
-
     //   // get extension
     //    str = nu::GetFileExtension(filenames[0]);
     //    std::cout << "Extension: " << str << "\n";
-
     //    // get filename no extension
     //    str = nu::GetFilenameNoExtension(filenames[0]);
     //    std::cout << "Filename No Extension: " << str << "\n\n";
     //}
-
     //// read and display text file
     //std::cout << "Text File Reading:\n";
     //std::string str;
@@ -181,7 +106,6 @@ int main()
     //{
     //    std::cout << str << "\n";
     //}
-
     //// write to text file
     //std::cout << "Text File Writing:\n";
     //nu::WriteTextFile("test.txt", "Hello, World!", true);
@@ -189,7 +113,6 @@ int main()
     //{
     //    std::cout << str << "\n";
     //}
-
     // create texture, using shared_ptr so texture can be shared
     //std::shared_ptr<Texture> texture = std::make_shared<Texture>();
     //texture->Load(/*TODO: texture filename, get renderer from engine*/);
@@ -216,7 +139,6 @@ int main()
         //if (Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_1)) {
         //    Engine::Get().GetAudio().PlaySound("buh");
         //}
-
         // Audio Keymapping
         //if (Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_1))
         //{
@@ -245,26 +167,24 @@ int main()
 
         // GAME
         game.Update(dt);
-        
-        //for (size_t i = 1; i < points.size(); i++)
-        //{
-        //    Engine::Get().GetRenderer().SetColor(RandomFloat(256), RandomFloat(256), RandomFloat(256));
-        //    Engine::Get().GetRenderer().DrawLine(points[i - 1].x, points[i - 1].y, points[i].x, points[i].y);
-        //}
 
         // RENDER
         Engine::Get().GetRenderer().SetColor(0.0f, 0.0f, 0.0f);
         Engine::Get().GetRenderer().Clear();
-
         game.Draw(Engine::Get().GetRenderer()); 
-        Engine::Get().GetRenderer().DrawTexture(*texture, 30, 30);
+
+
+
+
+        auto texture = Resources().Get<Texture>("textures/chud.jpg", Engine::Get().GetRenderer());
+        Engine::Get().GetRenderer().DrawTexture(*texture, 600, 200, 0.0f, 1.0f);
+        //Engine::Get().GetRenderer().DrawTexture(*Resources().Get<Texture>("textures/player.png"), 30, 30);
+
+
+        
 
         Engine::Get().GetPS().Draw(Engine::Get().GetRenderer());
-
-
         Engine::Get().GetRenderer().Present();
-    
-    
     }
 
     // SHUTDOWN

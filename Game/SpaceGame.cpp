@@ -4,6 +4,8 @@
 #include "Enemy.h"
 #include "Item.h"
 #include "Assets.h"
+
+#include <memory>
 #include <iostream>
 
 using namespace nu;
@@ -14,18 +16,12 @@ bool SpaceGame::Initialize()
 
     m_scene = new Scene();
     m_scene->SetGame(this);
-    
-    m_titleFont = new Font();
-    m_titleFont->Load("fonts/Airspace.ttf", 64);
-
-    m_titleText = new Text(m_titleFont);
+   
+    m_titleText = new Text(Resources().GetWithID<Font>("title_font", "fonts/Airspace.ttf", 64.0f));
     m_titleText->Create(Engine::Get().GetRenderer(), "Potato's Space Game", Color{ 1.0f, 1.0f, 1.0f });
 
-    m_gameFont = new Font();
-    m_gameFont->Load("fonts/Airspace.ttf", 32);
-
-    m_scoreText = new Text(m_gameFont);
-    m_livesText = new Text(m_gameFont);
+    m_scoreText = new Text(Resources().GetWithID<Font>("game_font", "fonts/Airspace.ttf", 32.0f));
+    m_livesText = new Text(Resources().Get<Font>("game_font", 32.0f));
 
     //Engine::Get().GetAudio().AddSound("laser", "audio/laser.wav");
     //Engine::Get().GetAudio().AddSound("explosion", "audio/explosion.wav");
@@ -109,6 +105,8 @@ void SpaceGame::Update(float dt)
 
 void SpaceGame::Draw(nu::Renderer& renderer)
 {
+    renderer.DrawTexture(*nu::Resources().Get<Texture>("textures/background.jpg", nu::Engine::Get().GetRenderer()), 400, 450);
+
     switch (m_gameState)
     {
     case GameState::Title:
@@ -152,7 +150,8 @@ void SpaceGame::SpawnPlayer() {
     PlayerDesc playerDesc;
     playerDesc.name = "Player";
     playerDesc.tag = "Player";
-    playerDesc.model = assets::playerModel;
+    //playerDesc.model = assets::playerModel;
+    playerDesc.texture = Resources().Get<Texture>("textures/player.png", Engine::Get().GetRenderer());
     playerDesc.transform = Transform{ Vector2{ 640.0f, 512.0f }, 0.0f, 15.0f };
     playerDesc.velocity = Vector2{ 0.0f, 0.0f };
     playerDesc.damping = 3.0f;
@@ -166,7 +165,8 @@ void SpaceGame::SpawnEnemy() {
     EnemyDesc enemyDesc;
     enemyDesc.name = "Enemy";
     enemyDesc.tag = "Enemy";
-    enemyDesc.model = assets::playerModel;
+    //enemyDesc.model = assets::playerModel;
+    enemyDesc.texture = Resources().Get<Texture>("textures/enemy.png", Engine::Get().GetRenderer());
     enemyDesc.transform = Transform{ Vector2{ nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()), nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 0.0f, 10.0f };
     enemyDesc.speed = RandomFloat(1000.0f, 2000.0f);
     enemyDesc.damping = 3.0f;
@@ -179,7 +179,8 @@ void SpaceGame::SpawnItem() {
     ItemDesc itemDesc;
     itemDesc.name = "Item";
     itemDesc.tag = "Item";
-    itemDesc.model = assets::itemModel;
+    //itemDesc.model = assets::itemModel;
+    itemDesc.texture = Resources().Get<Texture>("textures/item.jpg", Engine::Get().GetRenderer());
     itemDesc.transform = Transform{ Vector2{ nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()), nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 0.0f, 10.0f };
     itemDesc.speed = 0.0;
     itemDesc.damping = 3.0f;

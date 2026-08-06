@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "Renderer.h"
 #include "MathUtils.h"
+#include "Texture.h"
 
 namespace nu {
 
@@ -24,12 +25,28 @@ namespace nu {
 
     void Actor::Draw(const Renderer& renderer) const {
 
-        renderer.DrawModel(m_model, m_transform);
+        if (m_model) {
+            renderer.DrawModel(*m_model, m_transform);
+        }
+
+        if (m_texture) {
+            renderer.DrawTexture(*m_texture, 
+                m_transform.position.x, 
+                m_transform.position.y, 
+                m_transform.rotation,
+                m_transform.scale);
+        }
     }
 
-    float Actor::GetRadius() const
-    {
-        return m_model.GetRadius() * m_transform.scale * 0.9f;
+    float Actor::GetRadius() const {
+        if (m_model) {
+            return m_model->GetRadius() * m_transform.scale * 0.7f;
+        }
+        if (m_texture) {
+            return (m_texture->GetSize().Length() * 0.5f * 0.5f);
+        }
+
+        return 0.0f;
     }
 
 }

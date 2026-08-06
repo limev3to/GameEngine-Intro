@@ -17,7 +17,7 @@ namespace nu {
     {
         // load image onto surface
         SDL_Surface* surface = IMG_Load(filename.c_str());
-        if (surface == nullptr)
+        if (!surface)
         {
             std::cerr << "Could not load image: " << filename << std::endl;
             return false;
@@ -27,7 +27,7 @@ namespace nu {
         m_texture = SDL_CreateTextureFromSurface(renderer.m_renderer, surface);
         // once texture is created, surface can be freed up
         SDL_DestroySurface(surface);
-        if (m_texture == nullptr)
+        if (!m_texture)
         {
             std::cerr << "Could not create texture: " << filename << std::endl;
             return false;

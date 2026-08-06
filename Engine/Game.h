@@ -6,7 +6,8 @@ namespace nu {
 
 	class Game {
 	public: 
-		Game() = default;
+		Game() = default ;
+		
 		Game(Scene* scene) : 
 			m_scene { scene }
 		{ }
@@ -20,7 +21,7 @@ namespace nu {
 		void SetScene(Scene* scene) { m_scene = scene; }
 
 	protected:
-		Scene* m_scene;
+		Scene* m_scene = nullptr;
 
 	};
 }

@@ -15,6 +15,7 @@
 #include "GameTime.h"
 #include "ParticleSystem.h"
 #include "Texture.h"
+#include "ResourceManager.h"
 
 // framework
 #include "Actor.h"
