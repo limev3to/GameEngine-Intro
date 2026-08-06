@@ -97,6 +97,9 @@ int main()
     Engine::Get().GetAudio().AddSound("itemPickup", "audio/item_pickup.wav");
     Engine::Get().GetAudio().AddSound("enemyExplosion", "audio/enemy_explosion.wav");
 
+    std::shared_ptr<Texture> texture = std::make_shared<Texture>();
+    texture->Load("textures/chud.jpg", Engine::Get().GetRenderer());
+
     // create audio system
 //FMOD::System* audio;
 //FMOD::System_Create(&audio);
@@ -187,6 +190,10 @@ int main()
     //    std::cout << str << "\n";
     //}
 
+    // create texture, using shared_ptr so texture can be shared
+    //std::shared_ptr<Texture> texture = std::make_shared<Texture>();
+    //texture->Load(/*TODO: texture filename, get renderer from engine*/);
+
     // MAIN LOOP
     bool quit = false;
 
@@ -238,22 +245,26 @@ int main()
 
         // GAME
         game.Update(dt);
-
-        // RENDER
-        Engine::Get().GetRenderer().SetColor(0.0f, 0.0f, 0.0f);
-        Engine::Get().GetRenderer().Clear();
-
+        
         //for (size_t i = 1; i < points.size(); i++)
         //{
         //    Engine::Get().GetRenderer().SetColor(RandomFloat(256), RandomFloat(256), RandomFloat(256));
         //    Engine::Get().GetRenderer().DrawLine(points[i - 1].x, points[i - 1].y, points[i].x, points[i].y);
         //}
 
-        game.Draw(Engine::Get().GetRenderer());
+        // RENDER
+        Engine::Get().GetRenderer().SetColor(0.0f, 0.0f, 0.0f);
+        Engine::Get().GetRenderer().Clear();
+
+        game.Draw(Engine::Get().GetRenderer()); 
+        Engine::Get().GetRenderer().DrawTexture(*texture, 30, 30);
 
         Engine::Get().GetPS().Draw(Engine::Get().GetRenderer());
 
+
         Engine::Get().GetRenderer().Present();
+    
+    
     }
 
     // SHUTDOWN

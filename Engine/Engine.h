@@ -14,14 +14,12 @@
 #include "Audio.h"
 #include "GameTime.h"
 #include "ParticleSystem.h"
+#include "Texture.h"
 
 // framework
 #include "Actor.h"
 #include "Scene.h"
 #include "Game.h"
-
-//#include <iostream>
-//#include <vector>
 
 namespace nu {
 	class Engine {
