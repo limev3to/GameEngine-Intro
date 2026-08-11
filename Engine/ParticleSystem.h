@@ -15,6 +15,7 @@ namespace nu {
 		Vector2 velocity{ 0, 0 };
 		
 		std::shared_ptr<Texture> sprite;
+		// res_t<Texture> texture;
 	};
 
 	class ParticleSystem
