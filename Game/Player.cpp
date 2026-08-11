@@ -24,25 +24,31 @@ void Player::Update(float dt) {
     AddVelocity(velocity * dt);
 
     // particle system
-    nu::Particle particle;
-    particle.position = m_transform.position;
-    particle.color = { 1.0f, 1.0f, 1.0f };
-    particle.lifespan = nu::RandomFloat(0.5f, 1.5f);
-    particle.velocity = { nu::RandomFloat(-100.0f, 30.0f), nu::RandomFloat(-200.0f, 200.0f) };
+    if (thrust && nu::RandomInt(10) == 0)
+    {
+        nu::Particle particle;
+        particle.position = m_transform.position;
+        particle.sprite = nu::Resources().Get<nu::Texture>("textures/particle.png", nu::Engine::Get().GetRenderer());
+        particle.lifespan = nu::RandomFloat(0.5f, 1.5f);
+        particle.velocity = { nu::RandomFloat(-200.0f, 200.0f), nu::RandomFloat(-200.0f, 200.0f) };
 
-    nu::Engine::Get().GetPS().AddParticle(particle);
+        nu::Engine::Get().GetPS().AddParticle(particle);
+    }
 
     isBuffed -= dt;
 
     // fire
     if (nu::Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE)) {
 
+        nu::Transform b_transform = m_transform;
+        b_transform.scale = 1.5f;
+
         if (isBuffed <= 0) {
             BulletDesc desc;
             desc.name = "Bullet";
             desc.tag = "PlayerBullet";
-            desc.model = assets::bulletModel;
-            desc.transform = m_transform;
+            desc.transform = b_transform;
+            desc.texture = nu::Resources().Get<nu::Texture>("textures/bullet.png", nu::Engine::Get().GetRenderer());
             desc.speed = 1000.0f;
             desc.lifespan = 2.0f;
 
@@ -53,8 +59,8 @@ void Player::Update(float dt) {
             BulletDesc desc;
             desc.name = "Bullet";
             desc.tag = "PlayerBullet";
-            desc.model = assets::bulletModel;
-            desc.transform = m_transform;
+            desc.transform = b_transform;
+            desc.texture = nu::Resources().Get<nu::Texture>("textures/bullet.png", nu::Engine::Get().GetRenderer());
             desc.speed = 3000.0f;
             desc.lifespan = 3.5f;
 
