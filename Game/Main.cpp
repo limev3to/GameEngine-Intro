@@ -21,11 +21,42 @@ using namespace nu;
 int main()
 {
 
-    //Factory::Instance().Register<Actor>("Actor");
-    //auto actor = Factory::Instance().Create("Actor");
-    //std::cout << actor->IsActive() << std::endl;
-
     SetWorkingDirectory("Assets");
+
+
+    Factory::Instance().Register<Actor>("Actor");
+    Factory::Instance().Register<Object>("Object");
+    Factory::Instance().Register<Player>("Player");
+    
+    auto actor = Factory::Instance().Create<Actor>("Actor");
+    std::cout << actor->IsActive() << std::endl;
+    
+    auto object = Factory::Instance().Create("Object");
+    std::cout << object->IsActive() << std::endl;
+
+    auto player = Factory::Instance().Create<Player>("Player");
+    std::cout << player->IsActive() << std::endl;
+
+    json::document_t document;
+    if (json::Load("data/scene.json", document)) {
+
+        actor->Read(document);
+
+        std::cout << actor->GetName() << std::endl;
+        std::cout << actor->GetTag() << std::endl;
+        
+        player->Read(document);
+
+        std::cout << player->GetName() << std::endl;
+        std::cout << player->GetTag() << std::endl;
+
+        std::cout << player->GetSpeed() << std::endl;
+    }
+
+
+    return 0;
+
+
 
     // load the json data from a file
     std::string buffer;

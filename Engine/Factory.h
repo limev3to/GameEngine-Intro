@@ -20,13 +20,11 @@ namespace nu {
     class Creator : public ICreator {
 
     public:
-        ~Creator() = default;
+        //~Creator() = default;
         std::unique_ptr<Object> Create() override { return std::make_unique<T>(); }
     };
 
     class Factory : public Singleton<Factory> {
-    private:
-        std::map<std::string, std::unique_ptr<ICreator>> m_registry;
 
     public:
         template<typename T>
@@ -36,6 +34,8 @@ namespace nu {
         template<typename T = class Object>
             requires std::derived_from<T, Object>
         std::unique_ptr<T> Create(const std::string& name);
+    private:
+        std::map<std::string, std::unique_ptr<ICreator>> m_registry;
     };
 
     template<typename T>
@@ -68,9 +68,14 @@ namespace nu {
         auto object = m_registry[lowerName]->Create();
         //auto object = iter->second->Create();
 
+        // check if object is derived from T
         T* derived = dynamic_cast<T*>(object.get());
+
         if (derived) {
+            // release unique ptr ownership
             object.release();
+            
+            // create new unique ptr with derived ptr
             return std::unique_ptr<T>(derived);
         } else {
             std::cerr << "Object not derived from type: " << name << std::endl; 
