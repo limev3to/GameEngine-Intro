@@ -21,6 +21,7 @@
 #include "GameTime.h"
 #include "ParticleSystem.h"
 #include "ResourceManager.h"
+#include "Physics/Physics.h"
 
 // framework
 #include "Actor.h"
@@ -44,6 +45,9 @@ namespace nu {
 		ParticleSystem& GetPS() { return m_particleSystem; }
 		Audio& GetAudio() { return m_audio; }
 
+
+		Physics& GetPhysics() { return m_physics; }
+
 	private:
 		Engine() = default;
 
@@ -54,6 +58,9 @@ namespace nu {
 		ParticleSystem m_particleSystem;
 
 		Time m_time;
+
+		Physics m_physics;
+
 	};
 
 }
