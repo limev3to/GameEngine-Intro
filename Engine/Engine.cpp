@@ -2,8 +2,6 @@
 #include "Engine.h"
 #include "framework.h"
 
-#include <iostream>
-
 namespace nu {
 
 	bool Engine::Initialize() {

@@ -1,11 +1,10 @@
 #include "pch.h"
 #include "Renderer.h"
-#include "Transform.h"
 #include "Model.h"
+#include "Transform.h"
 #include "MathUtils.h"
 #include "Texture.h"
 
-#include <iostream>
 
 namespace nu
 {
