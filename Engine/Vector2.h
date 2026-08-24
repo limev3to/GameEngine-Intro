@@ -40,6 +40,8 @@ namespace nu {
 		// move to Vector3
 		float LengthSqr() const { return (x * x) + (y * y); }
 		float Length() const { return std::sqrt(LengthSqr()); }
+		float Distance(const Vector2& v) const { return (v - *this).Length(); }
+
 		Vector2 Normalized() const { return (*this) / Length(); }
 		float Dot(const Vector2& v) const { return (this->x * v.x) + (this->y * v.y); }
 		

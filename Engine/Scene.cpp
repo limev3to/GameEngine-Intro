@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "Scene.h"
 #include "Actor.h"
+#include "Factory.h"
+#include "Components/ColliderComponent.h"
+
+#include <iostream>
+//#include <ranges>
 
 namespace nu {
 
@@ -19,7 +24,6 @@ namespace nu {
 			actor->Update(dt);
 		}
 
-		// update collisions
 		UpdateCollisions();
 
 		// remove destroyed actors
@@ -32,11 +36,61 @@ namespace nu {
 		m_pendingActors.clear();
 	}
 
+
+	bool Scene::Load(const std::string& sceneName)
+	{
+		json::document_t document;
+		if (json::Load("data/scene.json", document)) {
+
+			if (JSON_HAS_NAME(document, "actors")) {
+
+				for (auto& actorValue : JSON_GET_NAME(document, "actors").GetArray()) {
+
+					// get actor type
+					std::string typeName;
+					JSON_READ_NAME(actorValue, "type", typeName);
+
+					std::cout << "Loading actor type: " << typeName << std::endl;
+
+					// create actor of type
+					auto actor = Factory::Instance().Create<Actor>(typeName);
+					
+					// could not create actor (actor is null)
+					if (!actor) {
+						std::cout << "Could not create actor type: " << typeName << std::endl;
+						continue;
+					}
+
+					// read actor json
+					actor->Read(actorValue);
+
+					bool prototype = false;
+					JSON_READ(actorValue, prototype);
+
+					if (prototype)
+					{
+						std::string name;
+						JSON_READ(actorValue, name);
+						Factory::Instance().RegisterPrototype<Actor>(name, std::move(actor));
+					}
+					else
+					{
+						AddActor(std::move(actor));
+					}
+				}
+			}
+		}
+
+		return true;
+	}
+
+
 	void Scene::Draw(const class Renderer& renderer) {
 		for (auto& actor : m_actors) {
 			actor->Draw(renderer);
 		}
 	}
+
 
 	void Scene::UpdateCollisions() {
 		
@@ -46,12 +100,22 @@ namespace nu {
 				
 				if (actorA == actorB || actorA->m_destroyed || actorB->m_destroyed) continue;
 
-				float distance = (actorA->m_transform.position - actorB->m_transform.position).Length();
+				auto colliderA = actorA->GetComponent<ColliderComponent>();
+				auto colliderB = actorB->GetComponent<ColliderComponent>();
 
-				if (distance <= actorA->GetRadius() + actorB->GetRadius()) {
+				if (!colliderA || !colliderB) continue;
+
+				if (colliderA->CheckCollision(*colliderB))
+				{
 					actorA->OnCollision(actorB.get());
 					actorB->OnCollision(actorA.get());
 				}
+
+				//float distance = (actorA->m_transform.position - actorB->m_transform.position).Length();
+				//if (distance <= actorA->GetRadius() + actorB->GetRadius()) {
+				//	actorA->OnCollision(actorB.get());
+				//	actorB->OnCollision(actorA.get());
+				//}
 			}
 		}
 	}

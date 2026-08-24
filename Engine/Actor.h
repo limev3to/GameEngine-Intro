@@ -1,8 +1,11 @@
 #pragma once
+
 #include "Object.h"
+#include "Framework/Component.h"
 #include "Transform.h"
 #include "Model.h"
 #include "Resource.h"
+
 #include <string>
 #include <memory>
 
@@ -30,10 +33,12 @@ namespace nu {
             m_transform{ actorDesc.transform },
             m_velocity{ actorDesc.velocity },
             m_damping{ actorDesc.damping },
-            m_lifespan{ actorDesc.lifespan },
-            m_model{ actorDesc.model },
-            m_texture{ actorDesc.texture }
+            m_lifespan{ actorDesc.lifespan }
         { }
+
+        Actor(const Actor& other);
+
+        CLASS_PROTOTYPE(Actor)
 
         Actor(const Transform& transform) : m_transform{ transform } {};
         
@@ -57,14 +62,20 @@ namespace nu {
         Scene* GetScene() { return m_scene; }
 
         float GetRadius() const;
-        void SetModel(std::shared_ptr<Model> model) { m_model = model; }
 
         void SetDestroyed(bool destroy = true) { m_destroyed = destroy; }
         bool GetDestroyed() const { return m_destroyed; }
 
+        void AddComponent(std::unique_ptr<Component> component);
+
         virtual void Read(const json::value_t& value) override;
 
+        template<std::derived_from<Component> T>
+        T* GetComponent();
+
         friend Scene;
+
+        void SetLifespan(float lifespan) { m_lifespan = lifespan; }
 
     protected:
         std::string m_tag;
@@ -75,10 +86,20 @@ namespace nu {
         float m_lifespan{ 0 };
         bool m_destroyed{ false };
 
-        res_t<Model> m_model;
-        res_t<Texture> m_texture;
-
+        std::vector<std::unique_ptr<Component>> m_components;
 
         Scene* m_scene = nullptr;
     };
+
+    template<std::derived_from<Component> T>
+    inline T* Actor::GetComponent()
+    {
+        for (auto& component : m_components)
+        {
+            auto result = dynamic_cast<T*>(component.get());
+            if (result) return result;
+        }
+
+        return nullptr;
+    }
 }

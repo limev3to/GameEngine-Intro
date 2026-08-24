@@ -11,6 +11,8 @@ namespace nu {
 		void AddActor(std::unique_ptr<Actor> actor);
 		void RemoveAllActors();
 
+		bool Load(const std::string& sceneName);
+
 		void Update(float dt);
 		void Draw(const class Renderer& renderer);
 
@@ -34,10 +36,13 @@ namespace nu {
 	inline T* Scene::GetActorByName(const std::string& name)
 	{
 		for (auto& actor : m_actors) {
+
 			T* actorT = dynamic_cast<T*>(actor.get());
+			
 			if (actorT && actorT->m_name == name) {
 				return actorT;
 			}
+
 		}
 
 		return nullptr;

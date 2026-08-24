@@ -1,11 +1,14 @@
 #include "Player.h"
+#include "SpaceGame.h"
+#include "Engine.h"
 #include "Bullet.h"
 #include "Assets.h"
-#include "SpaceGame.h"
 
 #include "Renderer.h"
-#include "Engine.h"
+#include <memory>
 #include <iostream>
+
+FACTORY_REGISTER(Player)
 
 void Player::Update(float dt) {
     // movement
@@ -43,31 +46,20 @@ void Player::Update(float dt) {
         nu::Transform b_transform = m_transform;
         b_transform.scale = 1.5f;
 
-        if (isBuffed <= 0) {
-            BulletDesc desc;
-            desc.name = "Bullet";
-            desc.tag = "PlayerBullet";
-            desc.transform = b_transform;
-            desc.texture = nu::Resources().Get<nu::Texture>("textures/bullet.png", nu::Engine::Get().GetRenderer());
-            desc.speed = 1000.0f;
-            desc.lifespan = 2.0f;
+        auto bullet = nu::Factory::Instance().Create<Bullet>("BulletPrototype");
 
-            Bullet* bullet = new Bullet{ desc };
-            m_scene->AddActor(std::move(std::make_unique<Bullet>(desc)));
-            nu::Engine::Get().GetAudio().PlaySound("laser");
-        } else {
-            BulletDesc desc;
-            desc.name = "Bullet";
-            desc.tag = "PlayerBullet";
-            desc.transform = b_transform;
-            desc.texture = nu::Resources().Get<nu::Texture>("textures/bullet.png", nu::Engine::Get().GetRenderer());
-            desc.speed = 3000.0f;
-            desc.lifespan = 3.5f;
+        bullet->SetPosition(b_transform.position);
+        bullet->SetRotation(b_transform.rotation);
 
-            Bullet* bullet = new Bullet{ desc };
-            m_scene->AddActor(std::move(std::make_unique<Bullet>(desc)));
-            nu::Engine::Get().GetAudio().PlaySound("laser");
+        if (isBuffed > 0) {
+
+            bullet->SetLifespan(3.5f);
+            bullet->SetSpeed(3000);
         }
+
+        nu::Engine::Get().GetAudio().PlaySound("laser");
+
+        m_scene->AddActor(std::move(bullet));
     }
 
 
@@ -94,3 +86,23 @@ void Player::Read(const nu::json::value_t& value) {
 
     JSON_READ_NAME(value, "speed", m_speed);
 }
+
+//BulletDesc desc;
+//desc.name = "Bullet";
+//desc.tag = "PlayerBullet";
+//desc.transform = b_transform;
+//desc.texture = nu::Resources().Get<nu::Texture>("textures/bullet.png", nu::Engine::Get().GetRenderer());
+//desc.speed = 1000.0f;
+//desc.lifespan = 2.0f;
+//Bullet* bullet = new Bullet{ desc };
+//m_scene->AddActor(std::move(std::make_unique<Bullet>(desc)));
+
+//BulletDesc desc;
+//desc.name = "Bullet";
+//desc.tag = "PlayerBullet";
+//desc.transform = b_transform;
+//desc.texture = nu::Resources().Get<nu::Texture>("textures/bullet.png", nu::Engine::Get().GetRenderer());
+//desc.speed = 3000.0f;
+//desc.lifespan = 3.5f;
+//Bullet* bullet = new Bullet{ desc };
+//m_scene->AddActor(std::move(std::make_unique<Bullet>(desc)));

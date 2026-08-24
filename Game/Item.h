@@ -8,16 +8,10 @@ struct ItemDesc : public nu::ActorDesc {
 class Item : public nu::Actor {
 public:
     Item() = default;
-    Item(const ItemDesc& ItemDesc) :
-        Actor(ItemDesc),
-        m_speed{ ItemDesc.speed }
-    {
-    }
+
+    CLASS_PROTOTYPE(Item)
 
     void Update(float dt) override;
     void OnCollision(Actor* other) override;
-
-private:
-    float m_speed = 1200.0f;
 
 };

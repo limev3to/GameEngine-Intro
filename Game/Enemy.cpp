@@ -6,9 +6,11 @@
 
 #include <iostream>
 
+FACTORY_REGISTER(Enemy)
+
 void Enemy::Update(float dt) {
 
-    Player* player = m_scene->GetActorByName<Player>("Player");
+    Player* player = m_scene->GetActorByName<Player>("PlayerPrototype");
     if (player) {
         nu::Vector2 direction = player->GetTransform().position - m_transform.position;
         float rotation = direction.Angle();
@@ -31,7 +33,6 @@ void Enemy::Update(float dt) {
 
         nu::Engine::Get().GetPS().AddParticle(particle);
     }
-
 
     Actor::Update(dt);
 }
@@ -56,4 +57,10 @@ void Enemy::OnCollision(Actor* other) {
             nu::Engine::Get().GetPS().AddParticle(particle);
         }
     }
+}
+
+void Enemy::Read(const nu::json::value_t& value) {
+    Actor::Read(value);
+
+    JSON_READ_NAME(value, "speed", m_speed);
 }

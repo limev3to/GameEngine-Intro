@@ -7,6 +7,16 @@
 #include <iostream>
 #include <map>
 
+
+#define FACTORY_REGISTER(classname)																\
+	class Register##classname																	\
+	{																							\
+	public:																						\
+		Register##classname() { nu::Factory::Instance().Register<classname>(#classname); }	    \
+	};																							\
+	static Register##classname registerInstance##classname;
+
+
 namespace nu {
 
     class ICreator {
@@ -20,8 +30,22 @@ namespace nu {
     class Creator : public ICreator {
 
     public:
-        //~Creator() = default;
         std::unique_ptr<Object> Create() override { return std::make_unique<T>(); }
+    };
+
+    template <typename T>
+        requires std::derived_from<T, Object>
+    class PrototypeCreator : public ICreator
+    {
+    public:
+        PrototypeCreator(std::unique_ptr<Object> prototype) : m_prototype{ std::move(prototype) } {}
+        std::unique_ptr<class Object> Create() override
+        {
+            return m_prototype->Clone();
+        }
+
+    private:
+        std::unique_ptr<Object> m_prototype;
     };
 
     class Factory : public Singleton<Factory> {
@@ -31,9 +55,15 @@ namespace nu {
             requires std::derived_from<T, Object>
         void Register(const std::string& name);
 
+        template<typename T>
+            requires std::derived_from<T, Object>
+        void RegisterPrototype(const std::string& name, std::unique_ptr<T> prototype);
+
+
         template<typename T = class Object>
             requires std::derived_from<T, Object>
         std::unique_ptr<T> Create(const std::string& name);
+
     private:
         std::map<std::string, std::unique_ptr<ICreator>> m_registry;
     };
@@ -49,7 +79,26 @@ namespace nu {
             return;
         }
 
+        std::cout << "Object registered: " << name << std::endl;
+
         m_registry[lowerName] = std::make_unique<Creator<T>>();
+    }
+
+    template <typename T>
+        requires std::derived_from<T, Object>
+    inline void Factory::RegisterPrototype(const std::string& name, std::unique_ptr<T> prototype)
+    {
+        std::string lowerName = ToLower(name);
+
+        if (m_registry.contains(lowerName))
+        {
+            // Cancel adding a name to registry that already has an object in it
+            std::cerr << "Object already registered: " << lowerName << std::endl;
+            return;
+        }
+
+        // Store object to registry under name
+        m_registry[lowerName] = std::make_unique<PrototypeCreator<T>>(std::move(prototype));
     }
 
     template<typename T>

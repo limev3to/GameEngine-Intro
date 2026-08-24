@@ -6,6 +6,8 @@
 
 #include <iostream>
 
+FACTORY_REGISTER(Item)
+
 void Item::Update(float dt) {
 
     //// particle system
