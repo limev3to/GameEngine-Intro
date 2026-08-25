@@ -170,6 +170,7 @@
     <ClInclude Include="SpaceGame.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Build\Assets\Animations\bat_idle.json" />
     <None Include="..\Build\Assets\data\scene.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

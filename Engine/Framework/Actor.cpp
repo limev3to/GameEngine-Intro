@@ -66,7 +66,7 @@ namespace nu {
     void Actor::Read(const json::value_t& value) {
         Object::Read(value);
 
-        if (JSON_HAS(value, "transform")) {
+        if (JSON_HAS_NAME(value, "transform")) {
             m_transform.Read(JSON_GET_NAME(value, "transform"));
         }
 

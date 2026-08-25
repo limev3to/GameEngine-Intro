@@ -161,7 +161,6 @@ void SpaceGame::SpawnPlayer() {
     //std::unique_ptr<Player> player = std::make_unique<Player>(playerDesc);
 
     auto player = Factory::Instance().Create<Actor>("PlayerPrototype");
-    player->SetPosition({500, 500});
     m_scene->AddActor(std::move(player));
 }
 
