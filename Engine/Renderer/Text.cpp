@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "Text.h"
-#include "Renderer.h"
+#include "Renderer/Text.h"
+#include "Renderer/Renderer.h"
 
 
 namespace nu {

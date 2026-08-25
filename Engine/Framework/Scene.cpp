@@ -1,7 +1,7 @@
 #include "pch.h"
-#include "Scene.h"
-#include "Actor.h"
-#include "Factory.h"
+#include "Framework/Scene.h"
+#include "Framework/Actor.h"
+#include "Core/Factory.h"
 #include "Components/ColliderComponent.h"
 
 namespace nu {

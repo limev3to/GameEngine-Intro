@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "GameTime.h"
+#include "Core/GameTime.h"
 
 namespace nu {
 

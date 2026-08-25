@@ -1,5 +1,6 @@
 #pragma once
 #include "Framework/Component.h"
+#include "Serialization/Json.h"
 
 namespace nu {
 

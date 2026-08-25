@@ -1,7 +1,7 @@
 #pragma once
-#include "Object.h"
-#include "Singleton.h"
-#include "StringUtils.h"
+#include "Framework/Object.h"
+#include "Core/Singleton.h"
+#include "Core/StringUtils.h"
 
 #include <memory>
 #include <iostream>

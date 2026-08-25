@@ -1,6 +1,7 @@
 #pragma once
-#include "RendererComponent.h"
-#include "Texture.h"
+#include "Components/RendererComponent.h"
+#include "Renderer/Texture.h"
+#include "Serialization/Json.h"
 
 namespace nu {
 	class SpriteRendererComponent : public RendererComponent {

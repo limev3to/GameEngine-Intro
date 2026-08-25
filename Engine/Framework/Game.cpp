@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "Game.h"
-#include "Scene.h"
+#include "Framework/Game.h"
+#include "Framework/Scene.h"
 
 namespace nu {
 	void Game::Update(float dt) {

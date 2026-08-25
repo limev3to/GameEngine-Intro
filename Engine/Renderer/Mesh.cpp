@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Mesh.h"
+#include "Renderer/Mesh.h"
 
 namespace nu {
 	float Mesh::GetRadius() const {

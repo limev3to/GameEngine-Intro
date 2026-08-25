@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "ParticleSystem.h"
-#include "Renderer.h"
+#include "Renderer/ParticleSystem.h"
+#include "Renderer/Renderer.h"
 
 namespace nu {
 	bool ParticleSystem::Initialize(size_t size)

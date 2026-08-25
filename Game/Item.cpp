@@ -1,6 +1,6 @@
 #include "Item.h"
 #include "Player.h"
-#include "Renderer.h"
+#include "Renderer/Renderer.h"
 #include "Engine.h"
 #include "SpaceGame.h"
 

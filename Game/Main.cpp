@@ -4,14 +4,6 @@
 #include "Assets.h"
 #include "SpaceGame.h"
 
-#include <fmod.hpp>
-
-#include <iostream>
-#include <vector>
-#include <map>
-#include <memory>
-#include <random>
-#include <fstream>
 
 using namespace nu;
 

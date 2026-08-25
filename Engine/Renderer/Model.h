@@ -1,5 +1,5 @@
 #pragma once
-#include "Mesh.h"
+#include "Renderer/Mesh.h"
 
 namespace nu {
 	class Model {
