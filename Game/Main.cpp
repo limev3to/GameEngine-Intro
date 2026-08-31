@@ -1,8 +1,5 @@
 #include "Engine.h"
-#include "Player.h"
-#include "Enemy.h" 
-#include "Assets.h"
-#include "SpaceGame.h"
+#include "SpriteGame/SpriteGame.h"
 
 
 using namespace nu;
@@ -11,13 +8,15 @@ using namespace nu;
 int main()
 {
     SetWorkingDirectory("Assets");
-    
+
     // INITIALIZATION
     Engine::Get().Initialize();
     Engine::Get().GetAudio().Initialize();
 
-    SpaceGame game;
-    game.Initialize();
+
+    auto spriteGame = std::make_unique<SpriteGame>();
+
+    spriteGame->Initialize();
 
     Engine::Get().GetAudio().AddSound("bgm", "audio/tech-space.wav");
     Engine::Get().GetAudio().AddSound("laser", "audio/laser.wav");
@@ -49,20 +48,22 @@ int main()
         float dt = Engine::Get().GetTime().GetDeltaTime();
 
         // GAME
-        game.Update(dt);
+        spriteGame->Update(dt);
 
         // RENDER
         Engine::Get().GetRenderer().SetColor(0.0f, 0.0f, 0.0f);
         Engine::Get().GetRenderer().Clear();
-        game.Draw(Engine::Get().GetRenderer()); 
+        spriteGame->Draw(Engine::Get().GetRenderer()); 
 
         Engine::Get().GetPS().Draw(Engine::Get().GetRenderer());
         Engine::Get().GetRenderer().Present();
     }
 
     // SHUTDOWN
-    //Engine::Get().GetRenderer().Shutdown();
+
     Engine::Get().GetAudio().Shutdown();
+
+    spriteGame.reset();
     Engine::Get().Shutdown();
     return 0;
 }

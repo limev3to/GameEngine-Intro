@@ -1,26 +1,24 @@
-#include "SpaceGame.h"
+#include "SpriteGame.h"
 #include "Engine.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "Item.h"
-#include "Assets.h"
 
 #include <memory>
 #include <iostream>
 
 using namespace nu;
 
-bool SpaceGame::Initialize()
+bool SpriteGame::Initialize()
 {
+    SetWorkingDirectory("SpriteGame");
     Game::Initialize();
 
-    m_scene = new Scene();
+    m_scene = std::make_unique<Scene>();
+
     m_scene->SetGame(this);
 
     m_scene->Load("data/scene.json");
    
     m_titleText = new Text(Resources().GetWithID<Font>("title_font", "fonts/Airspace.ttf", 64.0f));
-    m_titleText->Create(Engine::Get().GetRenderer(), "Potato's Space Game", Color{ 1.0f, 1.0f, 1.0f });
+    m_titleText->Create(Engine::Get().GetRenderer(), "Potato's Sprite Game", Color{ 1.0f, 1.0f, 1.0f });
 
     m_scoreText = new Text(Resources().GetWithID<Font>("game_font", "fonts/Airspace.ttf", 32.0f));
     m_livesText = new Text(Resources().Get<Font>("game_font", 32.0f));
@@ -31,7 +29,7 @@ bool SpaceGame::Initialize()
     return false;
 }
 
-void SpaceGame::Update(float dt)
+void SpriteGame::Update(float dt)
 {
     switch (m_gameState)
     {
@@ -105,7 +103,7 @@ void SpaceGame::Update(float dt)
     Game::Update(dt);
 }
 
-void SpaceGame::Draw(nu::Renderer& renderer)
+void SpriteGame::Draw(nu::Renderer& renderer)
 {
     renderer.DrawTexture(*nu::Resources().Get<Texture>("textures/background.png", nu::Engine::Get().GetRenderer()), 0, 0, 0, 5);
 
@@ -137,7 +135,7 @@ void SpaceGame::Draw(nu::Renderer& renderer)
 
 }
 
-void SpaceGame::OnPlayerDead() {
+void SpriteGame::OnPlayerDead() {
 
     std::cout << "Player DEAD" << std::endl;
 
@@ -148,7 +146,7 @@ void SpaceGame::OnPlayerDead() {
 }
 
 
-void SpaceGame::SpawnPlayer() {
+void SpriteGame::SpawnPlayer() {
     //PlayerDesc playerDesc;
     //playerDesc.name = "Player";
     //playerDesc.tag = "Player";
@@ -164,7 +162,7 @@ void SpaceGame::SpawnPlayer() {
     m_scene->AddActor(std::move(player));
 }
 
-void SpaceGame::SpawnEnemy() {
+void SpriteGame::SpawnEnemy() {
     //EnemyDesc enemyDesc;
     //enemyDesc.name = "Enemy";
     //enemyDesc.tag = "Enemy";
@@ -180,7 +178,7 @@ void SpaceGame::SpawnEnemy() {
     m_scene->AddActor(std::move(enemy));
 }
 
-void SpaceGame::SpawnItem() {
+void SpriteGame::SpawnItem() {
     //ItemDesc itemDesc;
     //itemDesc.name = "Item";
     //itemDesc.tag = "Item";
