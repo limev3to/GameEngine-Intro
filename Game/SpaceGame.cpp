@@ -17,7 +17,7 @@ bool SpaceGame::Initialize()
     m_scene = new Scene();
     m_scene->SetGame(this);
 
-    m_scene->Load("Potato's Space Game");
+    m_scene->Load("data/scene.json");
    
     m_titleText = new Text(Resources().GetWithID<Font>("title_font", "fonts/Airspace.ttf", 64.0f));
     m_titleText->Create(Engine::Get().GetRenderer(), "Potato's Space Game", Color{ 1.0f, 1.0f, 1.0f });

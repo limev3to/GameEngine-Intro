@@ -9,7 +9,7 @@ namespace nu {
 	class Scene {
 	public: 
 		void AddActor(std::unique_ptr<Actor> actor);
-		void RemoveAllActors();
+		void RemoveAllActors(bool force = false);
 
 		bool Load(const std::string& sceneName);
 

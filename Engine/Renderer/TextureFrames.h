@@ -1,7 +1,7 @@
 #pragma once
 #include "Resources/ResourceManager.h"
 #include "Math/Vector2.h"
-#include "Rect.h"
+#include "Math/Rect.h"
 #include <string>
 
 namespace nu {

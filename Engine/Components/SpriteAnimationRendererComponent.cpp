@@ -2,7 +2,7 @@
 #include "SpriteAnimationRendererComponent.h"
 #include "Core/Factory.h"
 #include "Resources/ResourceManager.h"
-#include "TextureFrames.h"
+#include "Renderer/TextureFrames.h"
 #include "Engine.h"
 
 namespace nu {

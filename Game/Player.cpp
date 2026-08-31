@@ -3,6 +3,7 @@
 #include "Engine.h"
 #include "Bullet.h"
 #include "Assets.h"
+#include "Components/PhysicsComponent.h"
 
 #include "Renderer/Renderer.h"
 #include <memory>
@@ -17,14 +18,28 @@ void Player::Update(float dt) {
     if (nu::Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_S)) thrust = -m_speed;
 
     float rotate = 0.0f;
-    if (nu::Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_A)) rotate = -180.0f;
-    if (nu::Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_D)) rotate = +180.0f;
+    if (nu::Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_A)) rotate = -.75f;
+    if (nu::Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_D)) rotate = +.75f;
+
+
+    auto physicsComponent = GetComponent<nu::PhysicsComponent>();
+    if (physicsComponent)
+    {
+        nu::Vector2 forward{ 1, 0 };
+        nu::Vector2 force = forward.Rotate(m_transform.rotation * nu::DegToRad) * thrust;
+        physicsComponent->ApplyForce(force);
+
+        physicsComponent->ApplyTorque(rotate);
+
+        physicsComponent->SetPosition({ nu::Wrap(0.0f, 1280.0f, physicsComponent->GetPosition().x), nu::Wrap(0.0f, 1024.0f, physicsComponent->GetPosition().y) });
+    }
+
 
     SetRotation(m_transform.rotation + rotate * dt);
 
     nu::Vector2 forward{ 1, 0 };
     nu::Vector2 velocity = forward.Rotate(m_transform.rotation * nu::DegToRad) * thrust;
-    AddVelocity(velocity * dt);
+    //AddVelocity(velocity * dt);
 
     // particle system
     if (thrust && nu::RandomInt(10) == 0)

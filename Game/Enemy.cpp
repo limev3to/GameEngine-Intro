@@ -18,7 +18,7 @@ void Enemy::Update(float dt) {
 
         nu::Vector2 forward{ 1, 0 };
         forward = forward.Rotate(m_transform.rotation * nu::DegToRad);
-        AddVelocity(forward * m_speed * dt);
+        //AddVelocity(forward * m_speed * dt);
 
     }
 

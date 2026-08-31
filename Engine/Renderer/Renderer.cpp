@@ -5,7 +5,7 @@
 
 #include "Math/Transform.h"
 #include "Math/MathUtils.h"
-#include "Rect.h"
+#include "Math/Rect.h"
 
 
 namespace nu
@@ -131,6 +131,7 @@ namespace nu
         destRect.y = y - (destRect.h * 0.5f);
 
         // https://wiki.libsdl.org/SDL3/SDL_RenderTexture
+        SDL_SetTextureScaleMode(texture.m_texture, SDL_SCALEMODE_NEAREST);
         SDL_RenderTextureRotated(m_renderer, texture.m_texture, NULL, &destRect, angle, NULL, (flipH) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
     }
 
@@ -150,6 +151,7 @@ namespace nu
         destRect.y = y - (destRect.h * 0.5f);
 
         // https://wiki.libsdl.org/SDL3/SDL_RenderTexture
+        SDL_SetTextureScaleMode(texture.m_texture, SDL_SCALEMODE_NEAREST);
         SDL_RenderTextureRotated(m_renderer, texture.m_texture, &sourceRect, &destRect, angle, NULL, flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
     }
 }

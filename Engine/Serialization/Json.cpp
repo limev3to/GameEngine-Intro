@@ -2,10 +2,10 @@
 #include "Serialization/Json.h"
 #include "Core/File.h"
 
-namespace nu::json
-{
-    bool Load(const std::string& filename, document_t& document)
-    {
+namespace nu::json {
+
+    bool Load(const std::string& filename, document_t& document) {
+
         // read the file into a string
         std::string buffer;
         if (!ReadTextFile(filename, buffer))
@@ -53,7 +53,7 @@ namespace nu::json
         // get the data
         data = value[name.c_str()].GetInt();
 
-        return true;    
+        return true;
     }
 
     bool Read(const value_t& value, const std::string& name, unsigned int& data, bool required)
@@ -90,16 +90,16 @@ namespace nu::json
 
     bool Read(const value_t& value, const std::string& name, bool& data, bool required) {
         // check if the value has the “" and the correct data type 
-        if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsBool()) { 
+        if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsBool()) {
             if (required)
-                std::cerr << "Could not read JSON value (bool): " << name << std::endl; 
-            return false; 
+                std::cerr << "Could not read JSON value (bool): " << name << std::endl;
+            return false;
         }
 
         // get the data
         data = value[name.c_str()].GetBool();
 
-        return true;        
+        return true;
     }
 
     bool Read(const value_t& value, const std::string& name, std::string& data, bool required)
@@ -175,4 +175,27 @@ namespace nu::json
 
         return true;
     }
+
+    bool Read(const value_t& value, const std::string& name, std::vector<int>& data, bool required) {
+        // check if the value has the "<name>" and is an array with 3 elements
+        if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray()) {
+            if (required) std::cerr << "Could not read JSON value (std::vector<int>):" << name << std::endl;
+            return false;
+        }
+
+        // get json array object
+        auto& array = value[name.c_str()];
+        // get array values, iterate through each element
+        for (rapidjson::SizeType i = 0; i < array.Size(); i++) {
+
+            if (!array[i].IsInt()) {
+                if (required) std::cerr << "Could not read JSON value (std::vector<int>):" << name << std::endl;
+                return false;
+            }
+
+            // get the data
+            data.push_back(array[i].GetInt());
+        }
+    }
+
 }
