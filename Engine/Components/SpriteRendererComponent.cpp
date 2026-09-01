@@ -8,30 +8,50 @@
 #include "Core/Factory.h"
 
 namespace nu {
+    FACTORY_REGISTER(SpriteRendererComponent)
 
-    class RegisterSpriteRendererComponent {
-    public: RegisterSpriteRendererComponent() {
-        nu::Factory::Instance().Register<SpriteRendererComponent>("SpriteRendererComponent");
+    //class RegisterSpriteRendererComponent {
+    //public: RegisterSpriteRendererComponent() {
+    //    nu::Factory::Instance().Register<SpriteRendererComponent>("SpriteRendererComponent");
+    //}
+    //}; static RegisterSpriteRendererComponent registerInstanceSpriteRendererComponent;
+
+    void SpriteRendererComponent::Start() {
+
+        if (!m_textureName.empty()) {
+            m_texture = Resources().Get<Texture>(m_textureName, Engine::Get().GetRenderer());
+            if (m_texture) {
+                m_size = m_texture->GetSize();
+            }
+        }
     }
-    }; static RegisterSpriteRendererComponent registerInstanceSpriteRendererComponent;
 
-	void SpriteRendererComponent::Draw(const Renderer& renderer) {
+    void SpriteRendererComponent::Draw(const Renderer& renderer) {
         if (m_texture) {
-            renderer.DrawTexture(*m_texture,
-                GetOwner()->GetTransform().position.x,
-                GetOwner()->GetTransform().position.y,
-                GetOwner()->GetTransform().rotation,
-                GetOwner()->GetTransform().scale);
+            if (m_sourceRect.w > 0 && m_sourceRect.h > 0) {
+                renderer.DrawTexture(*m_texture,
+                    m_sourceRect,
+                    GetOwner()->GetTransform().position.x,
+                    GetOwner()->GetTransform().position.y,
+                    GetOwner()->GetTransform().rotation,
+                    GetOwner()->GetTransform().scale,
+                    m_flipH);
+            }
+            else {
+                renderer.DrawTexture(*m_texture,
+                    GetOwner()->GetTransform().position.x,
+                    GetOwner()->GetTransform().position.y,
+                    GetOwner()->GetTransform().rotation,
+                    GetOwner()->GetTransform().scale,
+                    m_flipH);
+            }
         }
 	}
 
     void SpriteRendererComponent::Read(const json::value_t& value) {
         RendererComponent::Read(value);
 
-        std::string textureName;
-        JSON_READ_NAME(value, "texture", textureName);
-        if (!textureName.empty()) {
-            m_texture = Resources().Get<Texture>(textureName, Engine::Get().GetRenderer());
-        }
+        JSON_READ_NAME(value, "texture", m_textureName);
+        JSON_READ_NAME(value, "flipH", m_flipH);
     }
 }

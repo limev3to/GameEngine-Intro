@@ -28,10 +28,12 @@ void Player::Update(float dt) {
         nu::Vector2 forward{ 1, 0 };
         nu::Vector2 force = forward.Rotate(m_transform.rotation * nu::DegToRad) * thrust;
         physicsComponent->ApplyForce(force);
-
         physicsComponent->ApplyTorque(rotate);
 
-        physicsComponent->SetPosition({ nu::Wrap(0.0f, 1280.0f, physicsComponent->GetPosition().x), nu::Wrap(0.0f, 1024.0f, physicsComponent->GetPosition().y) });
+        nu::Vector2 position = physicsComponent->GetPosition();
+        nu::Engine::Get().GetRenderer().SetCamera(position);
+
+        //physicsComponent->SetPosition({ nu::Wrap(0.0f, 1280.0f, physicsComponent->GetPosition().x), nu::Wrap(0.0f, 1024.0f, physicsComponent->GetPosition().y) });
     }
 
 

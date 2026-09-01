@@ -4,25 +4,61 @@
     <Filter Include="Assets">
       <UniqueIdentifier>{1389e3ff-c880-4d2c-92c7-f252abdcb803}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets\Scenes">
-      <UniqueIdentifier>{107e584e-2f1a-4752-b471-0a237da5255a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Animations">
-      <UniqueIdentifier>{6dfb0a95-3bb1-4624-8b9e-fd92f2ae6f1e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SpaceGame">
       <UniqueIdentifier>{d74bb6b9-ef7f-4fe3-bf3e-49c84d575ed1}</UniqueIdentifier>
     </Filter>
     <Filter Include="SpriteGame">
       <UniqueIdentifier>{773c0f15-1404-4393-a89c-b7f3d421067e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\SpaceGame">
+      <UniqueIdentifier>{3eb3ec6b-bbf7-4e57-b9fe-b54d7619a003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\SpaceGame\Scenes">
+      <UniqueIdentifier>{107e584e-2f1a-4752-b471-0a237da5255a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\SpaceGame\Animations">
+      <UniqueIdentifier>{6dfb0a95-3bb1-4624-8b9e-fd92f2ae6f1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\SpaceGame\Tilemaps">
+      <UniqueIdentifier>{3d4f6834-26dd-41b0-9efe-0d9f514d3ac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\SpriteGame">
+      <UniqueIdentifier>{b2cc4032-5b82-4a93-bfca-3e7288dc7dc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\SpriteGame\Animations">
+      <UniqueIdentifier>{51296575-7e9c-422e-8304-8c46df420860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\SpriteGame\Scenes">
+      <UniqueIdentifier>{fbd08858-8b70-4ad5-9fd5-cb5772638bff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\SpriteGame\Tilemaps">
+      <UniqueIdentifier>{0bbf1e39-0de7-42f0-8c78-5b1fb51aa1b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Build\Assets\data\scene.json">
-      <Filter>Assets\Scenes</Filter>
+      <Filter>Assets\SpaceGame\Scenes</Filter>
     </None>
     <None Include="..\Build\Assets\Animations\bat_idle.json">
-      <Filter>Assets\Animations</Filter>
+      <Filter>Assets\SpaceGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\bat_idle.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\tilemaps\world.json">
+      <Filter>Assets\SpriteGame\Tilemaps</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Scenes\scene.json">
+      <Filter>Assets\SpriteGame\Scenes</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\goblin_run.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\goblin_idle.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\scenes\level.json">
+      <Filter>Assets\SpriteGame\Scenes</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +84,15 @@
     <ClCompile Include="SpriteGame\SpriteGame.cpp">
       <Filter>SpriteGame</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteGame\PlayerController.cpp">
+      <Filter>SpriteGame</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteGame\EnemyController.cpp">
+      <Filter>SpriteGame</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteGame\FlyingEnemyController.cpp">
+      <Filter>SpriteGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpaceGame\Assets.h">
@@ -69,6 +114,15 @@
       <Filter>SpaceGame</Filter>
     </ClInclude>
     <ClInclude Include="SpriteGame\SpriteGame.h">
+      <Filter>SpriteGame</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteGame\EnemyController.h">
+      <Filter>SpriteGame</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteGame\PlayerController.h">
+      <Filter>SpriteGame</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteGame\FlyingEnemyController.h">
       <Filter>SpriteGame</Filter>
     </ClInclude>
   </ItemGroup>

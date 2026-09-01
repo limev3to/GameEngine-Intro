@@ -15,7 +15,7 @@ bool SpriteGame::Initialize()
 
     m_scene->SetGame(this);
 
-    m_scene->Load("data/scene.json");
+    m_scene->Load("scenes/scene.json");
    
     m_titleText = new Text(Resources().GetWithID<Font>("title_font", "fonts/Airspace.ttf", 64.0f));
     m_titleText->Create(Engine::Get().GetRenderer(), "Potato's Sprite Game", Color{ 1.0f, 1.0f, 1.0f });
@@ -58,6 +58,8 @@ void SpriteGame::Update(float dt)
         m_stateTimer -= dt;
         if (m_stateTimer <= 0) {
             m_scene->RemoveAllActors();
+            m_scene->Load("scenes/level.json");
+
             SpawnPlayer();
             m_spawnTime = 5.0f;
             m_itemSpawnTimer = 10.0f;
@@ -105,6 +107,8 @@ void SpriteGame::Update(float dt)
 
 void SpriteGame::Draw(nu::Renderer& renderer)
 {
+    renderer.EnableCamera(false);
+ 
     renderer.DrawTexture(*nu::Resources().Get<Texture>("textures/background.png", nu::Engine::Get().GetRenderer()), 0, 0, 0, 5);
 
     switch (m_gameState)
@@ -130,6 +134,8 @@ void SpriteGame::Draw(nu::Renderer& renderer)
     default:
         break;
     }
+
+    renderer.EnableCamera();
 
     Game::Draw(renderer);
 
@@ -176,6 +182,10 @@ void SpriteGame::SpawnEnemy() {
     auto enemy = Factory::Instance().Create<Actor>("EnemyPrototype");
     enemy->SetPosition({ RandomFloat(100.0f, 1820.0f), RandomFloat(100.0f, 980.0f) });
     m_scene->AddActor(std::move(enemy));
+
+    auto flyingEnemy = Factory::Instance().Create<Actor>("FlyingEnemyPrototype");
+    flyingEnemy->SetPosition({ RandomFloat(100.0f, 1820.0f), RandomFloat(100.0f, 980.0f) });
+    m_scene->AddActor(std::move(flyingEnemy));
 }
 
 void SpriteGame::SpawnItem() {
@@ -189,8 +199,8 @@ void SpriteGame::SpawnItem() {
     //itemDesc.damping = 3.0f;
     //std::unique_ptr<Item> item = std::make_unique<Item>(itemDesc);
 
-    auto item = Factory::Instance().Create<Actor>("ItemPrototype");
-    item->SetPosition({ RandomFloat(100.0f, 1820.0f), RandomFloat(100.0f, 980.0f) });
-    item->SetScale(0.5f);
-    m_scene->AddActor(std::move(item));
+    //auto item = Factory::Instance().Create<Actor>("ItemPrototype");
+    //item->SetPosition({ RandomFloat(100.0f, 1820.0f), RandomFloat(100.0f, 980.0f) });
+    //item->SetScale(0.5f);
+    //m_scene->AddActor(std::move(item));
 }
