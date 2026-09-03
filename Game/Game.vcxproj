@@ -155,6 +155,8 @@
     <ClCompile Include="SpaceGame\Item.cpp" />
     <ClCompile Include="SpaceGame\Player.cpp" />
     <ClCompile Include="SpaceGame\SpaceGame.cpp" />
+    <ClCompile Include="SpriteGame\CharacterBase.cpp" />
+    <ClCompile Include="SpriteGame\Damager.cpp" />
     <ClCompile Include="SpriteGame\EnemyController.cpp" />
     <ClCompile Include="SpriteGame\FlyingEnemyController.cpp" />
     <ClCompile Include="SpriteGame\PlayerController.cpp" />
@@ -168,12 +170,28 @@
   <ItemGroup>
     <None Include="..\Build\Assets\Animations\bat_idle.json" />
     <None Include="..\Build\Assets\data\scene.json" />
-    <None Include="..\Build\Assets\SpriteGame\Animations\bat_idle.json" />
-    <None Include="..\Build\Assets\SpriteGame\Animations\goblin_idle.json" />
-    <None Include="..\Build\Assets\SpriteGame\Animations\goblin_run.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\enemy_attack.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\enemy_death.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\enemy_hit.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\enemy_idle.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\enemy_run.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\flying_enemy_attack.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\flying_enemy_death.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\flying_enemy_hit.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\flying_enemy_idle.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\flying_enemy_run.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\hero_attack.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\hero_death.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\hero_hurt.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\hero_idle.json" />
+    <None Include="..\Build\Assets\SpriteGame\Animations\hero_jump.json" />
     <None Include="..\Build\Assets\SpriteGame\scenes\level.json" />
     <None Include="..\Build\Assets\SpriteGame\Scenes\scene.json" />
+    <None Include="..\Build\Assets\SpriteGame\tilemaps\level.tiled-project" />
+    <None Include="..\Build\Assets\SpriteGame\tilemaps\level.tiled-session" />
+    <None Include="..\Build\Assets\SpriteGame\tilemaps\tileset.tsx" />
     <None Include="..\Build\Assets\SpriteGame\tilemaps\world.json" />
+    <None Include="..\Build\Assets\SpriteGame\tilemaps\world.tmx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpaceGame\Assets.h" />
@@ -182,6 +200,8 @@
     <ClInclude Include="SpaceGame\Item.h" />
     <ClInclude Include="SpaceGame\Player.h" />
     <ClInclude Include="SpaceGame\SpaceGame.h" />
+    <ClInclude Include="SpriteGame\CharacterBase.h" />
+    <ClInclude Include="SpriteGame\Damager.h" />
     <ClInclude Include="SpriteGame\EnemyController.h" />
     <ClInclude Include="SpriteGame\FlyingEnemyController.h" />
     <ClInclude Include="SpriteGame\PlayerController.h" />

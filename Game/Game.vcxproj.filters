@@ -42,23 +42,71 @@
     <None Include="..\Build\Assets\Animations\bat_idle.json">
       <Filter>Assets\SpaceGame\Animations</Filter>
     </None>
-    <None Include="..\Build\Assets\SpriteGame\Animations\bat_idle.json">
+    <None Include="..\Build\Assets\SpriteGame\Scenes\scene.json">
+      <Filter>Assets\SpriteGame\Scenes</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\scenes\level.json">
+      <Filter>Assets\SpriteGame\Scenes</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\hero_attack.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\hero_death.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\hero_hurt.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\hero_idle.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\hero_jump.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\flying_enemy_attack.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\flying_enemy_death.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\flying_enemy_hit.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\flying_enemy_idle.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\flying_enemy_run.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\enemy_attack.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\enemy_death.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\enemy_hit.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\enemy_idle.json">
+      <Filter>Assets\SpriteGame\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\SpriteGame\Animations\enemy_run.json">
       <Filter>Assets\SpriteGame\Animations</Filter>
     </None>
     <None Include="..\Build\Assets\SpriteGame\tilemaps\world.json">
       <Filter>Assets\SpriteGame\Tilemaps</Filter>
     </None>
-    <None Include="..\Build\Assets\SpriteGame\Scenes\scene.json">
-      <Filter>Assets\SpriteGame\Scenes</Filter>
+    <None Include="..\Build\Assets\SpriteGame\tilemaps\level.tiled-project">
+      <Filter>Assets\SpriteGame\Tilemaps</Filter>
     </None>
-    <None Include="..\Build\Assets\SpriteGame\Animations\goblin_run.json">
-      <Filter>Assets\SpriteGame\Animations</Filter>
+    <None Include="..\Build\Assets\SpriteGame\tilemaps\level.tiled-session">
+      <Filter>Assets\SpriteGame\Tilemaps</Filter>
     </None>
-    <None Include="..\Build\Assets\SpriteGame\Animations\goblin_idle.json">
-      <Filter>Assets\SpriteGame\Animations</Filter>
+    <None Include="..\Build\Assets\SpriteGame\tilemaps\world.tmx">
+      <Filter>Assets\SpriteGame\Tilemaps</Filter>
     </None>
-    <None Include="..\Build\Assets\SpriteGame\scenes\level.json">
-      <Filter>Assets\SpriteGame\Scenes</Filter>
+    <None Include="..\Build\Assets\SpriteGame\tilemaps\tileset.tsx">
+      <Filter>Assets\SpriteGame\Tilemaps</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +141,12 @@
     <ClCompile Include="SpriteGame\FlyingEnemyController.cpp">
       <Filter>SpriteGame</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteGame\CharacterBase.cpp">
+      <Filter>SpriteGame</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteGame\Damager.cpp">
+      <Filter>SpriteGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpaceGame\Assets.h">
@@ -123,6 +177,12 @@
       <Filter>SpriteGame</Filter>
     </ClInclude>
     <ClInclude Include="SpriteGame\FlyingEnemyController.h">
+      <Filter>SpriteGame</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteGame\CharacterBase.h">
+      <Filter>SpriteGame</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteGame\Damager.h">
       <Filter>SpriteGame</Filter>
     </ClInclude>
   </ItemGroup>

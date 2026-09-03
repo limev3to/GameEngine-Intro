@@ -18,7 +18,7 @@ namespace nu {
 
 		template<typename T = Actor> 
 		T* GetActorByName(const std::string& name);
-
+		
 		void SetGame(class Game* game) { m_game = game; }
 		class Game* GetGame() { return m_game; }
 

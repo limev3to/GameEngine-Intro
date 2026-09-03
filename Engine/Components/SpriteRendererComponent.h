@@ -1,7 +1,6 @@
 #pragma once
 #include "Components/RendererComponent.h"
 #include "Renderer/Texture.h"
-#include "Serialization/Json.h"
 #include "Math/Rect.h"
 
 namespace nu {
@@ -23,6 +22,7 @@ namespace nu {
 		std::string m_textureName;
 		Rect m_sourceRect;
 		Vector2 m_size{ 0.0f, 0.0f };
+		Vector2 m_origin{ 0.5f, 0.5f };
 		bool m_flipH = false;
 
 		res_t<Texture> m_texture = nullptr;

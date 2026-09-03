@@ -43,6 +43,8 @@ private:
 	float m_spawnTime = 5.0f;
 	int m_spawnCount = 0;
 
+	int m_enemyCount = 0;
+
 	float m_itemSpawnTimer = 0.0f;
 	float m_itemSpawnTime = 10.0f;
 
