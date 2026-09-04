@@ -27,6 +27,7 @@ public :
 
 	void OnPlayerDead();
 	void AddPoints(int points) { m_score += points; }
+	int GetPoints() { return m_score; }
 
 private: 
 	void SpawnPlayer();
@@ -34,8 +35,8 @@ private:
 	void SpawnItem();
 
 private:
-	int m_score{ 0 };
-	int m_lives{ 0 };
+	int m_score = 0;
+	int m_lives = 0;
 
 	float m_stateTimer = 0.0f;
 

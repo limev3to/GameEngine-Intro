@@ -18,6 +18,8 @@ int main()
 
     spriteGame->Initialize();
 
+    //std::cout << spriteGame << std::endl;
+
     Engine::Get().GetAudio().AddSound("bgm", "audio/tech-space.wav");
     Engine::Get().GetAudio().AddSound("laser", "audio/laser.wav");
     Engine::Get().GetAudio().AddSound("explosion", "audio/explosion.wav");

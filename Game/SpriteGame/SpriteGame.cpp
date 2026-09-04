@@ -57,7 +57,7 @@ void SpriteGame::Update(float dt)
         if (m_stateTimer <= 0) {
             m_scene->RemoveAllActors();
             m_scene->Load("scenes/level.json");
-
+            std::cout << GetPoints() << std::endl;
             SpawnPlayer();
             m_spawnTime = 5.0f;
             m_gameState = GameState::Game;

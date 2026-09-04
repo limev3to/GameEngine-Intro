@@ -61,8 +61,8 @@ void EnemyController::Update(float dt) {
 		if (!m_hasAttacked && m_rendererComponent->GetFrame() == 3) {
 			m_hasAttacked = true;
 			auto damager = nu::Factory::Instance().Create<Damager>("DamagerPrototype");
-			damager->SetDamage(3.0f);
-			damager->SetPosition(GetTransform().position);
+			damager->SetDamage(0.0f);
+			damager->SetPosition(GetTransform().position + nu::Vector2{ (m_rendererComponent->GetFlipH()) ? -20.0f : 20.f, 0.0f });
 			damager->SetScale(3.0f);
 			damager->SetTag("EnemyDamager");
 			m_scene->AddActor(std::move(damager));
@@ -107,6 +107,7 @@ void EnemyController::OnCollision(nu::Actor* other) {
 		if (m_health <= 0) {
 			SpriteGame* game = dynamic_cast<SpriteGame*>(m_scene->GetGame());
 			game->AddPoints(200);
+			std::cout << game->GetPoints() << std::endl;
 			SetDestroyed();
 		}
 

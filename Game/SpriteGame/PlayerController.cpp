@@ -51,7 +51,7 @@ void PlayerController::Update(float dt) {
 			m_rendererComponent->Play("attack");
 
 			auto damager = nu::Factory::Instance().Create<nu::Actor>("DamagerPrototype");
-			damager->SetPosition(GetTransform().position + nu::Vector2{ (m_rendererComponent->GetFlipH()) ? -20.f : 20.f, 0.0f});
+			damager->SetPosition(GetTransform().position + nu::Vector2{ (m_rendererComponent->GetFlipH()) ? -20.0f : 20.f, 0.0f});
 			damager->SetTag("PlayerDamager");
 			m_scene->AddActor(std::move(damager));
 

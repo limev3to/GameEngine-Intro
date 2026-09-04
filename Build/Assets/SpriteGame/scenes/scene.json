@@ -201,7 +201,7 @@
         "tag": "enemy",
         "active": true,
         "lifespan": 0.1,
-        "damage": 5,
+        "damage": 3,
         "transform": {
           "position": [ 960, 540 ],
           "rotation": 0,
