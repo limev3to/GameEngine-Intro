@@ -9,6 +9,7 @@ using namespace nu;
 bool SpriteGame::Initialize()
 {
     SetWorkingDirectory("SpriteGame");
+
     Game::Initialize();
 
     m_scene = std::make_unique<Scene>();
@@ -23,9 +24,6 @@ bool SpriteGame::Initialize()
     m_scoreText = new Text(Resources().GetWithID<Font>("game_font", "fonts/Airspace.ttf", 32.0f));
     m_livesText = new Text(Resources().Get<Font>("game_font", 32.0f));
 
-    //Engine::Get().GetAudio().AddSound("laser", "audio/laser.wav");
-    //Engine::Get().GetAudio().AddSound("explosion", "audio/explosion.wav");
-
     return false;
 }
 
@@ -37,7 +35,7 @@ void SpriteGame::Update(float dt)
         
         if (Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE)) {
             m_gameState = GameState::StartGame;
-            //Engine::Get().GetAudio().PlaySound("bgm");
+            Engine::Get().GetAudio().PlaySound("bgm");
         }
 
         break;
@@ -57,7 +55,6 @@ void SpriteGame::Update(float dt)
         if (m_stateTimer <= 0) {
             m_scene->RemoveAllActors();
             m_scene->Load("scenes/level.json");
-            std::cout << GetPoints() << std::endl;
             SpawnPlayer();
             m_spawnTime = 5.0f;
             m_gameState = GameState::Game;
@@ -90,11 +87,8 @@ void SpriteGame::Update(float dt)
         break;
 
     default:
-        
         break;
-    
     }
-
     Game::Update(dt);
 }
 
@@ -140,49 +134,28 @@ void SpriteGame::OnPlayerDead() {
 
     m_lives--;
     m_gameState = (m_lives == 0) ? GameState::GameOver : GameState::StartLevel;
-
-    m_stateTimer = 2.0f;
 }
 
 
 void SpriteGame::SpawnPlayer() {
-    //PlayerDesc playerDesc;
-    //playerDesc.name = "Player";
-    //playerDesc.tag = "Player";
-    //playerDesc.model = assets::playerModel;
-    //playerDesc.texture = Resources().Get<Texture>("textures/player.png", Engine::Get().GetRenderer());
-    //playerDesc.transform = Transform{ Vector2{ 640.0f, 512.0f }, 0.0f, 1.0f };
-    //playerDesc.velocity = Vector2{ 0.0f, 0.0f };
-    //playerDesc.damping = 3.0f;
-    //playerDesc.speed = 2000.0f;
-    //std::unique_ptr<Player> player = std::make_unique<Player>(playerDesc);
 
     auto player = Factory::Instance().Create<Actor>("PlayerPrototype");
     m_scene->AddActor(std::move(player));
 }
 
 void SpriteGame::SpawnEnemy() {
-    //EnemyDesc enemyDesc;
-    //enemyDesc.name = "Enemy";
-    //enemyDesc.tag = "Enemy";
-    ////enemyDesc.model = assets::playerModel;
-    //enemyDesc.texture = Resources().Get<Texture>("textures/enemy.png", Engine::Get().GetRenderer());
-    //enemyDesc.transform = Transform{ Vector2{ nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()), nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 0.0f, 1.0f };
-    //enemyDesc.speed = RandomFloat(1000.0f, 2000.0f);
-    //enemyDesc.damping = 3.0f;
-    //std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(enemyDesc);
 
     int enemyindex = RandomInt(2);
 
     if (enemyindex == 0) {
         auto enemy = Factory::Instance().Create<Actor>("EnemyPrototype");
-        enemy->SetPosition({ RandomFloat(100.0f, 1820.0f), RandomFloat(100.0f, 980.0f) });
+        enemy->SetPosition({ RandomFloat(100.0f, 3640.0f), RandomFloat(100.0f, 500.0f) });
         m_scene->AddActor(std::move(enemy));
 
     }
     else {
         auto flyingEnemy = Factory::Instance().Create<Actor>("FlyingEnemyPrototype");
-        flyingEnemy->SetPosition({ RandomFloat(100.0f, 1820.0f), RandomFloat(100.0f, 980.0f) });
+        flyingEnemy->SetPosition({ RandomFloat(100.0f, 3640.0f), RandomFloat(100.0f, 500.0f) });
         m_scene->AddActor(std::move(flyingEnemy));
     }
 

@@ -5,6 +5,7 @@
 #include "Framework/Scene.h"
 #include "Damager.h"
 #include "Engine.h"
+#include "SpriteGame.h"
 
 using namespace nu;
 
@@ -53,20 +54,18 @@ void PlayerController::Update(float dt) {
 
 			auto damager = nu::Factory::Instance().Create<nu::Actor>("DamagerPrototype");
 
-			std::cout << m_rendererComponent->GetFlipH() << std::endl;
 
 			if (m_rendererComponent->GetFlipH() == true) {
 				Vector2 pos = { -100.0f, 0.0f };
 				damager->SetPosition(GetTransform().position + pos);
-				std::cout << damager->GetTransform().position.x;
 			}
 			else {
 				Vector2 pos = { 100.0f, 0.0f };
 				damager->SetPosition(GetTransform().position + pos);
-				std::cout << damager->GetTransform().position.x;
 			}
 
 			damager->SetTag("PlayerDamager");
+			damager->SetScale(2.0f);
 			m_scene->AddActor(std::move(damager));
 
 		}
@@ -81,7 +80,7 @@ void PlayerController::Update(float dt) {
 	}
 		break;
 	case CharacterBase::State::Death:
-		SetDestroyed();
+		((SpriteGame*)m_scene->GetGame())->OnPlayerDead();
 		break;
 	default:
 		break;

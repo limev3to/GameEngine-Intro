@@ -17,7 +17,7 @@
         {
           "type": "SpriteAnimatorRendererComponent",
           "default_animation": "idle",
-          "origin": [ 0.8, 0.8 ],
+          "origin": [ 0.5, 0.8 ],
           "animations": [
             {
               "name": "run",
@@ -86,7 +86,7 @@
         {
           "type": "SpriteAnimatorRendererComponent",
           "default_animation": "idle",
-          "origin": [ 0.8, 0.8 ],
+          "origin": [ 0.5, 0.8 ],
           "animations": [
             {
               "name": "run",
@@ -115,7 +115,7 @@
             {
               "name": "death",
               "texture_frames": "animations/enemy_death.json",
-              "frames_per_second": 6,
+              "frames_per_second": 3,
               "loop": false
             }
           ]
@@ -201,7 +201,7 @@
         "tag": "enemy",
         "active": true,
         "lifespan": 0.1,
-        "damage": 3,
+        "damage": 10,
         "transform": {
           "position": [ 960, 540 ],
           "rotation": 0,
@@ -209,8 +209,7 @@
         },
         "components": [
           {
-            "type": "SpriteRendererComponent",
-            "texture": "textures/damager.png"
+            "type": "SpriteRendererComponent"
           },
           {
             "type": "Box2DPhysicsComponent",

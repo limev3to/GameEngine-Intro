@@ -13,12 +13,9 @@ int main()
     Engine::Get().Initialize();
     Engine::Get().GetAudio().Initialize();
 
-
     auto spriteGame = std::make_unique<SpriteGame>();
 
     spriteGame->Initialize();
-
-    //std::cout << spriteGame << std::endl;
 
     Engine::Get().GetAudio().AddSound("bgm", "audio/tech-space.wav");
     Engine::Get().GetAudio().AddSound("laser", "audio/laser.wav");

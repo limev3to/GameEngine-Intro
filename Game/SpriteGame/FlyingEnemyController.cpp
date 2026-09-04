@@ -11,7 +11,7 @@ using namespace nu;
 FACTORY_REGISTER(FlyingEnemyController)
 
 void FlyingEnemyController::Start() {
-
+	
 	CharacterBase::Start();
 
 	m_physicsComponent = GetComponent<PhysicsComponent>();
@@ -72,6 +72,8 @@ void FlyingEnemyController::Update(float dt) {
 		}
 		break;
 	case CharacterBase::State::Death:
+		m_rendererComponent->Play("death");
+		SetDestroyed();
 		break;
 	default:
 		break;
@@ -91,20 +93,18 @@ void FlyingEnemyController::OnCollision(nu::Actor* other) {
 
 		if (damager) {
 			m_health -= damager->GetDamage();
-			m_rendererComponent->Play("death");
 			damager->SetDestroyed();
 		}
 
 		if (m_health <= 0) {
 			SpriteGame* game = dynamic_cast<SpriteGame*>(m_scene->GetGame());
 			game->AddPoints(200);
-			SetDestroyed();
+			m_state = State::Death;
 		}
 
 		// remove damager
 		other->SetDestroyed();
 	}
-
 }
 
 void FlyingEnemyController::Read(const nu::json::value_t& value) {

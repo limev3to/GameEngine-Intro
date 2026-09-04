@@ -1,5 +1,5 @@
 {
-    "activeFile": "world.json",
+    "activeFile": "world.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -26,8 +26,8 @@
             "scale": 4,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1743.875,
-                "y": 213.75
+                "x": 1714.875,
+                "y": 213.875
             }
         },
         "world.tmx": {
@@ -35,7 +35,7 @@
             "selectedLayer": 1,
             "viewCenter": {
                 "x": 1136.6666666666665,
-                "y": 300
+                "y": 299.33333333333337
             }
         }
     },
@@ -48,8 +48,8 @@
     ],
     "project": "level.tiled-project",
     "recentFiles": [
-        "world.tmx",
         "world.json",
+        "world.tmx",
         "C:/Users/DHCor/Downloads/world.tmx",
         "C:/Users/DHCor/Downloads/tileset.tsx"
     ]
