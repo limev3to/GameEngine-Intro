@@ -21,6 +21,7 @@ void PlayerController::Start() {
 }
 
 void PlayerController::Update(float dt) {
+
 	
 	Vector2 velocity = m_physicsComponent->GetVelocity();
 
@@ -51,7 +52,20 @@ void PlayerController::Update(float dt) {
 			m_rendererComponent->Play("attack");
 
 			auto damager = nu::Factory::Instance().Create<nu::Actor>("DamagerPrototype");
-			damager->SetPosition(GetTransform().position + nu::Vector2{ (m_rendererComponent->GetFlipH()) ? -20.0f : 20.f, 0.0f});
+
+			std::cout << m_rendererComponent->GetFlipH() << std::endl;
+
+			if (m_rendererComponent->GetFlipH() == true) {
+				Vector2 pos = { -100.0f, 0.0f };
+				damager->SetPosition(GetTransform().position + pos);
+				std::cout << damager->GetTransform().position.x;
+			}
+			else {
+				Vector2 pos = { 100.0f, 0.0f };
+				damager->SetPosition(GetTransform().position + pos);
+				std::cout << damager->GetTransform().position.x;
+			}
+
 			damager->SetTag("PlayerDamager");
 			m_scene->AddActor(std::move(damager));
 
