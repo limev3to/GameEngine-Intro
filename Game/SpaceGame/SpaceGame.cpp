@@ -22,7 +22,7 @@ bool SpaceGame::Initialize()
     m_scene->Load("data/scene.json");
    
     m_titleText = new Text(Resources().GetWithID<Font>("title_font", "fonts/Airspace.ttf", 64.0f));
-    m_titleText->Create(Engine::Get().GetRenderer(), "Potato's Space Game", Color{ 1.0f, 1.0f, 1.0f });
+    m_titleText->Create(Engine::Get().GetRenderer(), "Graveyard Mash", Color{ 1.0f, 1.0f, 1.0f });
 
     m_scoreText = new Text(Resources().GetWithID<Font>("game_font", "fonts/Airspace.ttf", 32.0f));
     m_livesText = new Text(Resources().Get<Font>("game_font", 32.0f));
